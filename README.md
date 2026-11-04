@@ -47,6 +47,13 @@ memory:
     2: 300
     3: 750
     4: 2000
+  # 每天自动写日记（需要模型路由）
+  diary:
+    enabled: true
+    provider: deepseek-official
+    model: deepseek-flash
+    hour: 21
+    minTurns: 4
   embedding:
     provider: local            # local | openai | none
     model: Xenova/bge-small-zh-v1.5
