@@ -45,3 +45,29 @@ test('store: embeddings are stored and searched', () => {
     rmSync(dir, { recursive: true, force: true })
   }
 })
+
+test('store: layers, diary and notes', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'dsh-memory-'))
+  const store = new MemoryStore(join(dir, 'memory.db'))
+  try {
+    const turn = store.add({ text: '普通一句', kind: 'turn' })
+    const diary = store.add({ text: '今天聊了很多', kind: 'diary', date: '2026-11-04' })
+    const note = store.add({ text: '睡前要道晚安', kind: 'note', topic: '睡前', pinned: true })
+    assert.equal(store.get(turn).layer, 1)
+    assert.equal(store.get(diary).layer, 4)
+    assert.equal(store.get(note).layer, 5)
+    assert.equal(store.pinned().length, 1)
+
+    store.db.prepare('UPDATE memories SET importance = 7 WHERE id = ?').run(turn)
+    const promoted = store.maintain()
+    assert.ok(promoted.some(row => row.id === turn && row.layer === 2))
+    assert.equal(store.get(turn).layer, 2)
+
+    store.touch([turn, turn])
+    assert.equal(store.get(turn).access_count, 1)
+    assert.equal(store.stats().byLayer.find(row => row.layer === 4).count, 1)
+  } finally {
+    store.close()
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
