@@ -1,0 +1,32 @@
+{
+  "name": "dsh-memory-vector",
+  "version": "0.1.1",
+  "description": "不死记忆：给 DSH 伙伴的本地长期记忆，SQLite + 本地向量，上下文压缩后仍能想起你是谁。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "memory",
+    "companion",
+    "sqlite"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
