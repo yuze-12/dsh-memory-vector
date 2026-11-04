@@ -24,7 +24,7 @@ test('plugin: captures a turn, recalls it, and registers the memory tools', asyn
   const ctx = mockContext()
   try {
     apply(ctx, { dbPath: join(dir, 'memory.db'), embedding: { provider: 'none' } })
-    assert.equal(ctx.toolDefs.length, 8)
+    assert.equal(ctx.toolDefs.length, 10)
     assert.ok(ctx.handlers.has('session/event'))
     assert.ok(ctx.handlers.has('agent/pre-step'))
 
