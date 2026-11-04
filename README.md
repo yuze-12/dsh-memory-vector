@@ -36,6 +36,17 @@ memory:
   topK: 6
   injectChars: 2400
   captureTurns: true
+  # global：所有工作区共用一个库（默认）
+  # per-workspace：每个工作区一个独立库，互不可见
+  workspaceMode: global
+  # 只在这些目录下启用；留空表示全部
+  enabledWorkspaces: []
+  # 每层容量，超出后低分记忆下移，L4 超出则删除
+  caps:
+    1: 200
+    2: 300
+    3: 750
+    4: 2000
   embedding:
     provider: local            # local | openai | none
     model: Xenova/bge-small-zh-v1.5
